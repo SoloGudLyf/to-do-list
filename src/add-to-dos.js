@@ -1,15 +1,17 @@
-const toDos = {};
-function addToDoToList(value) {
+export const toDos = [];
+export function addToDoToList(value) {
   const toDo = { name: value, timeInit: time() };
-  toDos.toDo = toDo;
+  toDos.push(toDo);
   return toDos;
 }
 
-function time() {
+export function time() {
   const now = new Date();
-  const month = now.getMonth();
+  const d = new Date();
+  const options = { month: "short" }; // "long" for full month name, "short" for abbreviated
+  const formattedMonth = new Intl.DateTimeFormat("en-US", options).format(d);
   const day = now.getDate();
   const hour = now.getHours();
   const mins = now.getMinutes();
-  return month + day + hour + mins;
+  return `${day} ${formattedMonth} ${hour} hrs ${mins} mins`;
 }
