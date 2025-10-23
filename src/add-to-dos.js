@@ -1,11 +1,16 @@
 export const toDos = [];
+
+class task{
+  constructor(name,timeInit,check,id){
+    this.name = name
+    this.timeInit = time()
+    this.check = false
+    this.id = crypto.randomUUID()
+  }
+}
+
 export function addToDoToList(value) {
-  const toDo = {
-    name: value,
-    timeInit: time(),
-    check: false,
-    id: crypto.randomUUID(),
-  };
+  const toDo = new task(value)
   let toDos = JSON.parse(localStorage.getItem("toDos"));
   for (const element of toDos) {
     if (toDo.name == element.name) {

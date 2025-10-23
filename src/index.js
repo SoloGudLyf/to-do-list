@@ -5,6 +5,7 @@ import "./styles.css";
 const toDo = document.querySelector("#toDo");
 const addBtn = document.querySelector(".addToDo");
 const ul = document.querySelector(".toDoList");
+printToPage()
 
 // Add task to List
 addBtn.addEventListener("click", (e) => {
@@ -17,7 +18,6 @@ addBtn.addEventListener("click", (e) => {
   addToDoToList(toDo.value);
   printToPage();
 });
-addToLStorage(toDos);
 
 // Check or Delete Task
 ul.addEventListener("click", (e) => {
@@ -32,6 +32,7 @@ function printToPage() {
   const toDoList = document.querySelector(".toDoList");
   toDoList.textContent = "";
   let toDos = JSON.parse(localStorage.getItem("toDos"));
+  if (toDos.length === 0) return 
   for (const key of toDos) {
     const id = key.id;
     const li = document.createElement("li");
