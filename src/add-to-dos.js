@@ -1,7 +1,12 @@
-
 export const toDos = [];
 export function addToDoToList(value) {
-  const toDo = { name: value, timeInit: time(), check: false, id: crypto.randomUUID() };
+  const toDo = {
+    name: value,
+    timeInit: time(),
+    check: false,
+    id: crypto.randomUUID(),
+  };
+  let toDos = JSON.parse(localStorage.getItem("toDos"));
   for (const element of toDos) {
     if (toDo.name == element.name) {
       alert("Task already exist");
@@ -9,6 +14,7 @@ export function addToDoToList(value) {
     }
   }
   toDos.push(toDo);
+  addToLStorage(toDos);
   return toDos;
 }
 
@@ -21,4 +27,8 @@ export function time() {
   const hour = now.getHours();
   const mins = now.getMinutes();
   return `${day} ${formattedMonth} ${hour} hrs ${mins} mins`;
+}
+
+export function addToLStorage(list) {
+  localStorage.setItem("toDos", JSON.stringify(list));
 }

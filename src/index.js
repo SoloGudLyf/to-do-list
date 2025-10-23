@@ -15,9 +15,9 @@ addBtn.addEventListener("click", (e) => {
     return;
   }
   addToDoToList(toDo.value);
-  console.log(toDos);
   printToPage();
 });
+addToLStorage(toDos);
 
 // Check or Delete Task
 ul.addEventListener("click", (e) => {
@@ -31,36 +31,45 @@ ul.addEventListener("click", (e) => {
 function printToPage() {
   const toDoList = document.querySelector(".toDoList");
   toDoList.textContent = "";
+  let toDos = JSON.parse(localStorage.getItem("toDos"));
   for (const key of toDos) {
     const id = key.id;
     const li = document.createElement("li");
     li.innerHTML = `${key.name} <span class="time">(${key.timeInit})</span> <button class="check" data-id="${id}">✓</button><button class="del" data-id="${id}">X</button>`;
     toDoList.appendChild(li);
+    if (key.check === true) {
+      
+      li.querySelector(".check").id = "checkClicked";
+    }
   }
 }
 
 function checkToDo(e) {
   const btnId = e.target.dataset.id;
+  let toDos = JSON.parse(localStorage.getItem("toDos"));
   for (const element of toDos) {
     if (btnId === element.id) {
       element.check = element.check == true ? false : true;
-      console.log(element.check);
       if (element.check === true) {
         e.target.id = "checkClicked";
+        addToLStorage(toDos);
       } else {
-        e.target.id = null
+        e.target.id = null;
       }
     }
   }
+  addToLStorage(toDos)
 }
 
 function delToDo(e) {
   const btnId = e.target.dataset.id;
-  const UpdatedToDos = toDos.map((elem, index) => {
-    if (e.target.className === "del" && btnId === elem.id) {
-      const elemId = index;
-      toDos.splice(elemId, 1);
-      printToPage();
-    }
+  const toDos = JSON.parse(localStorage.getItem("toDos"));
+  const UpdatedToDos = toDos.filter((elem) => {
+   
+    return btnId !== elem.id
   });
+  addToLStorage(UpdatedToDos);
+  printToPage();
 }
+
+
