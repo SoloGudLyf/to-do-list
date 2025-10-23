@@ -1,6 +1,12 @@
 export const toDos = [];
 export function addToDoToList(value) {
-  const toDo = { name: value, timeInit: time() };
+  const toDo = { name: value, timeInit: time(), check: false };
+  for (const element of toDos) {
+    if (toDo.name == element.name) {
+      alert("Task already exist");
+      return;
+    }
+  }
   toDos.push(toDo);
   return toDos;
 }
@@ -15,3 +21,4 @@ export function time() {
   const mins = now.getMinutes();
   return `${day} ${formattedMonth} ${hour} hrs ${mins} mins`;
 }
+
