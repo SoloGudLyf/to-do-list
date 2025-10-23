@@ -1,6 +1,7 @@
+
 export const toDos = [];
 export function addToDoToList(value) {
-  const toDo = { name: value, timeInit: time(), check: false };
+  const toDo = { name: value, timeInit: time(), check: false, id: crypto.randomUUID() };
   for (const element of toDos) {
     if (toDo.name == element.name) {
       alert("Task already exist");

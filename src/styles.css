@@ -28,7 +28,7 @@ ul button {
 }
 
 .check:hover,
-.checkClicked {
+#checkClicked {
   background-color: rgba(15, 116, 15, 0.644);
   border-radius: 7px;
   border: none;
