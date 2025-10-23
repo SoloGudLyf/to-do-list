@@ -22,4 +22,3 @@ export function time() {
   const mins = now.getMinutes();
   return `${day} ${formattedMonth} ${hour} hrs ${mins} mins`;
 }
-

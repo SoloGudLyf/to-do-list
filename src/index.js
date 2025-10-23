@@ -1,10 +1,10 @@
-import { addToDoToList, toDos } from "./add-to-dos.js";
+import { addToDoToList, toDos, addToLStorage } from "./add-to-dos.js";
 import "./styles.css";
 
 // Get DOM elements
 const toDo = document.querySelector("#toDo");
 const addBtn = document.querySelector(".addToDo");
-const ul = document.querySelector(".toDoList")
+const ul = document.querySelector(".toDoList");
 
 // Add task to List
 addBtn.addEventListener("click", (e) => {
@@ -17,18 +17,16 @@ addBtn.addEventListener("click", (e) => {
   addToDoToList(toDo.value);
   console.log(toDos);
   printToPage();
- 
 });
 
 // Check or Delete Task
-ul.addEventListener("click", (e)=>{
-  if (e.target.className === "check"){
-    checkToDo(e)
+ul.addEventListener("click", (e) => {
+  if (e.target.className === "check") {
+    checkToDo(e);
+  } else if (e.target.className === "del") {
+    delToDo(e);
   }
-  else if(e.target.className === "del"){
-    delToDo(e)
-  }
-})
+});
 
 function printToPage() {
   const toDoList = document.querySelector(".toDoList");
@@ -45,8 +43,13 @@ function checkToDo(e) {
   const btnId = e.target.dataset.id;
   for (const element of toDos) {
     if (btnId === element.id) {
-      element.check = true;
-      e.target.id = "checkClicked";
+      element.check = element.check == true ? false : true;
+      console.log(element.check);
+      if (element.check === true) {
+        e.target.id = "checkClicked";
+      } else {
+        e.target.id = null
+      }
     }
   }
 }
@@ -56,8 +59,8 @@ function delToDo(e) {
   const UpdatedToDos = toDos.map((elem, index) => {
     if (e.target.className === "del" && btnId === elem.id) {
       const elemId = index;
-      toDos.splice(elemId, 1);      
-    printToPage()
+      toDos.splice(elemId, 1);
+      printToPage();
     }
   });
 }
