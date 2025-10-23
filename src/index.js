@@ -1,9 +1,12 @@
-import { addToDoToList, time, toDos } from "./add-to-dos.js";
+import { addToDoToList, toDos } from "./add-to-dos.js";
 import "./styles.css";
 
+// Get DOM elements
 const toDo = document.querySelector("#toDo");
 const addBtn = document.querySelector(".addToDo");
+const ul = document.querySelector(".toDoList")
 
+// Add task to List
 addBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const value = toDo.value;
@@ -14,9 +17,18 @@ addBtn.addEventListener("click", (e) => {
   addToDoToList(toDo.value);
   console.log(toDos);
   printToPage();
-  document.querySelector(".check").addEventListener("click", checkToDo);
+ 
 });
 
+// Check or Delete Task
+ul.addEventListener("click", (e)=>{
+  if (e.target.className === "check"){
+    checkToDo(e)
+  }
+  else if(e.target.className === "del"){
+    delToDo(e)
+  }
+})
 
 function printToPage() {
   const toDoList = document.querySelector(".toDoList");
@@ -36,6 +48,16 @@ function checkToDo(e) {
       element.check = true;
       e.target.id = "checkClicked";
     }
-  }  
+  }
 }
 
+function delToDo(e) {
+  const btnId = e.target.dataset.id;
+  const UpdatedToDos = toDos.map((elem, index) => {
+    if (e.target.className === "del" && btnId === elem.id) {
+      const elemId = index;
+      toDos.splice(elemId, 1);      
+    printToPage()
+    }
+  });
+}
