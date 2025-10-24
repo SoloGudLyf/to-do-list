@@ -5,7 +5,6 @@ import "./styles.css";
 const toDo = document.querySelector("#toDo");
 const addBtn = document.querySelector(".addToDo");
 const ul = document.querySelector(".toDoList");
-(function(){addToLStorage(toDos)})
 printToPage();
 
 // Add task to List
@@ -32,10 +31,9 @@ ul.addEventListener("click", (e) => {
 function printToPage() {
   const toDoList = document.querySelector(".toDoList");
   toDoList.textContent = "";
-  let toDos = JSON.parse(localStorage.getItem("toDos"));
+  let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
   console.log(toDos);
   if (toDos.length === 0) return;
-  
 
   for (const key of toDos) {
     const id = key.id;

@@ -11,8 +11,7 @@ class task{
 
 export function addToDoToList(value) {
   const toDo = new task(value)
-  let toDos = JSON.parse(localStorage.getItem("toDos"));
-  for (const element of toDos) {
+  let toDos = JSON.parse(localStorage.getItem("toDos")) || [];  for (const element of toDos) {
     if (toDo.name == element.name) {
       alert("Task already exist");
       return;
