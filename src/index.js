@@ -5,7 +5,8 @@ import "./styles.css";
 const toDo = document.querySelector("#toDo");
 const addBtn = document.querySelector(".addToDo");
 const ul = document.querySelector(".toDoList");
-printToPage()
+(function(){addToLStorage(toDos)})
+printToPage();
 
 // Add task to List
 addBtn.addEventListener("click", (e) => {
@@ -32,14 +33,16 @@ function printToPage() {
   const toDoList = document.querySelector(".toDoList");
   toDoList.textContent = "";
   let toDos = JSON.parse(localStorage.getItem("toDos"));
-  if (toDos.length === 0) return 
+  console.log(toDos);
+  if (toDos.length === 0) return;
+  
+
   for (const key of toDos) {
     const id = key.id;
     const li = document.createElement("li");
     li.innerHTML = `${key.name} <span class="time">(${key.timeInit})</span> <button class="check" data-id="${id}">✓</button><button class="del" data-id="${id}">X</button>`;
     toDoList.appendChild(li);
     if (key.check === true) {
-      
       li.querySelector(".check").id = "checkClicked";
     }
   }
@@ -59,18 +62,15 @@ function checkToDo(e) {
       }
     }
   }
-  addToLStorage(toDos)
+  addToLStorage(toDos);
 }
 
 function delToDo(e) {
   const btnId = e.target.dataset.id;
   const toDos = JSON.parse(localStorage.getItem("toDos"));
   const UpdatedToDos = toDos.filter((elem) => {
-   
-    return btnId !== elem.id
+    return btnId !== elem.id;
   });
   addToLStorage(UpdatedToDos);
   printToPage();
 }
-
-
